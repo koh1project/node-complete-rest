@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
-import "./Layout.css";
+import './Layout.css';
 
 const layout = props => (
   <Fragment>
