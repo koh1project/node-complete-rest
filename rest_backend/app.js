@@ -70,4 +70,5 @@ mongoose.connect('mongodb+srv://node:1234abcd@cluster0.nwkss.mongodb.net/myFirst
 
 /**
  * @typedef {(error: Error &  {statusCode: number; data: string;}, req: Express.Request, res: any, next: import('express').NextFunction) => void} ErrorHandler
+ * @typedef {(req: Express.Request, res: Express.Response, next: import('express').NextFunction) => void} Controller
  */
