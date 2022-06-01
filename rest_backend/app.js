@@ -8,10 +8,10 @@ const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 
 const feedRoutes = require('./routes/feed');
+const authRoutes = require('./routes/auth');
 
 
 const app = express();
-
 
 
 const storage = multer.diskStorage({
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/feed', feedRoutes);
-
+app.use('/auth', authRoutes);
 
 
 /**@type {ErrorHandler} */
@@ -55,9 +55,9 @@ const errorHandler = (error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
   const message = error.message;
+  const data = error.data;
 
-  res.status(status).json({ message: message });
-
+  res.status(status).json({ message: message, data: data });
 };
 
 app.use(errorHandler);
@@ -69,5 +69,5 @@ mongoose.connect('mongodb+srv://node:1234abcd@cluster0.nwkss.mongodb.net/myFirst
   }).catch(err => { console.log(err); });
 
 /**
- * @typedef {(error: Error &  {statusCode: number;}, req: Express.Request, res: any, next: import('express').NextFunction) => void} ErrorHandler
+ * @typedef {(error: Error &  {statusCode: number; data: string;}, req: Express.Request, res: any, next: import('express').NextFunction) => void} ErrorHandler
  */
