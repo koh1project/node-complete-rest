@@ -62,9 +62,8 @@ exports.createPost = (req, res, next) => {
   post
     .save()
     .then(result => {
-      return User.findById(id);
+      return User.findById(req.userId);
     }).then(user => {
-      console.log('user: ', user);
       creator = user;
       user.posts.push(post);
       return user.save();
@@ -174,7 +173,11 @@ exports.deletePost = (req, res, next) => {
       return Post.findByIdAndRemove(postId);
     })
     .then(result => {
-      console.log(result);
+      return User.findById(req.userId)
+    }).then(user => {
+      user.posts.pull(postId);
+      return user.save();
+    }).then(result => {
       res.status(200).json({ message: 'Deleted post.' });
     })
     .catch(err => {
