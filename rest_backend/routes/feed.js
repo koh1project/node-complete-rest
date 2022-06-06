@@ -27,7 +27,8 @@ router.post(
 router.get('/post/:postId', isAuth, feedController.getPost);
 
 router.put(
-  '/post/:postId', isAuth,
+  '/post/:postId',
+  isAuth,
   [
     body('title')
     .trim()
