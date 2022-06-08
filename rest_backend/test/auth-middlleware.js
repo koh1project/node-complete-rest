@@ -35,6 +35,8 @@ describe('Auth middleware', () => {
 
     authMiddleware(req, {}, () => {});
     expect(req).to.have.property('userId');
+    expect(req).to.have.property('userId', 'abc');
+    expect(jwt.verify.called).to.be.true;
     jwt.verify.restore();
   });
 
@@ -47,7 +49,6 @@ describe('Auth middleware', () => {
     };
     expect(authMiddleware.bind(this, req, {}, () => {})).to.throw();
   });
-
 
 
 });
